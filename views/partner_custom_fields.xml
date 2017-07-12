@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="adw_view_partners_form_crm" model="ir.ui.view">
+    <field name="name">view.res.partner.form.crm.inherited1</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+        <field name="category_id" position="after">
+          <field name="ae_domicilio_obra" placeholder="Dirección de Obra" />
+          <field name="ae_contrato_nuevo" placeholder="Contrato nuevo" />
+          <field name="ae_rfc" placeholder="RFC" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
+          <field name="ae_razon_social" placeholder="Nombre o Razón Social" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
+          <field name="ae_domicilio_fiscal" placeholder="Domicilio Fiscal" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
+        </field>
+    </field>
+  </record>
+</odoo>
