@@ -7,4 +7,4 @@ class CrmCustomFields(models.Model):
 
   _inherit = "crm.lead"
 
- # ae_servicio           = fields.Selection(string="Servicio", help="Servicio solicitado", required=True, selection=[('andamiaje_y_accesorios','Andamiaje y Accesorios'),('puntal_y_cimbra', 'Puntal y Cimbra'),('servicios', 'Servicios')])
+  # ae_servicio           = fields.Selection(string="Servicio", help="Servicio solicitado", required=True, selection=[(30, 30), (45, 45), (60, 60)])

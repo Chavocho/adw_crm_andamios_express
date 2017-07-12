@@ -10,7 +10,7 @@
           <field name="medium_id" string="Medio"/>
           <field name="source_id" string="Origen"/>
           <field name="lost_reason" string="Motivo de perdida"/>
-          <!--<field name="ae_servicio" string="Servicio"/>-->
+          <field name="ae_servicio" string="Servicio"/>
         </field>
     </field>
   </record>
