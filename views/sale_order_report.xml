@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="adw_sale_order_assets_backend" name="sale order assets" inherit_id="sale.report_saleorder_document">
+      <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/adw_crm_andamios_express/static/css/my.css"/>
+      </xpath>
+    </template>
+    <!--Template que sobreescribe el modelo report.external_layout_header, en cual modifica el encabezado del encabezado-->
+    <template id="adw_custom_report_saleorder_header_inherit" inherit_id="report.external_layout_header">
+      <xpath expr="//div[@class='header']/div[1]" position="replace">
+        <div class="col-xs-3" style="margin-bottom: 50px;">
+            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 130px;"/>
+        </div>
+        <div class="col-xs-5">
+          <strong t-field="company.partner_id" style="font-size:16px;"/><br/>
+          <span>RFC:</span> <span t-field="company.partner_id.ae_rfc"/><br/>
+          <span t-field="company.partner_id.street"/> <span t-field="company.partner_id.street2"/> C.P: <span t-field="company.partner_id.zip"/> <span t-field="company.partner_id.city"/><br/>
+          <span t-field="doc.user_id.email"/> <span t-field="company.partner_id.website"/><br/>
+        </div>
+        <div class="col-xs-4 text-right">
+          <strong t-if="doc.state not in ['draft','sent']" style="font-size:28px;">PEDIDO</strong>
+          <strong t-if="doc.state in ['draft','sent']" style="font-size:28px;">COTIZACIÓN</strong>
+          <br/><strong>Folio:</strong> <br/><span t-field="doc.name"/>
+          <br/><strong>Fecha:</strong> <br/><span t-field="doc.date_order"/>
+        </div>
+      </xpath>
+      <xpath expr="//div[@class='header']/div[5]" position="replace">
+        <!--Elimina los datos de empresa duplicado-->
+      </xpath>
+      <xpath expr="//div[@class='header']/div[4]/div" position="replace">
+        <!--Elimina borde del header-->
+      </xpath>
+    </template>
+
+    <template id="adw_custom_report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@class='page']/div[2]" position="replace">
+        </xpath>
+        <xpath expr="//div[@class='page']/h2[1]" position="replace">
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="replace">
+          <div class="col-xs-6" style="margin-bottom:15px;">
+            <div class="row">
+              <strong>DATOS DEL CLIENTE:</strong>
+              <div class="customer-info" style="border:solid 1px #000000;padding:5px 15px;">
+                <strong t-field="doc.partner_invoice_id"/><br/>
+                <span>Domicilio:</span> <span t-field="doc.partner_invoice_id.street"/><br/>
+                <span>Tel:</span> <span t-field="doc.partner_invoice_id.phone"/><br/>
+                <span>Email:</span> <span t-field="doc.partner_invoice_id.email"/><br/>
+              </div>
+            </div>
+          </div>
+          <div t-if="doc.user_id.name" class="col-xs-6">
+            <div>
+              <span>ELABORÓ:</span> <span t-field="doc.user_id"/>
+            </div>
+          </div>
+        </xpath>
+        <xpath expr="//table[@class='table table-condensed']/thead/tr" position="replace">
+          <th t-if="doc.print_image " class="border-black">Imagen</th>
+          <th class="text-left border-black">Cant.</th>
+          <th class="border-black">Días</th>
+          <th class="border-black">Descripción</th>
+          <th class="text-right border-black">Precio Unitario</th>
+          <th class="text-right border-black">Subtotal</th>
+        </xpath>
+        <xpath expr="//table/tbody[@class='sale_tbody']/t/t[2]" position="replace">
+          <t t-foreach="layout_category['lines']" t-as="l">
+            <tr>
+              <t t-if="doc.image_sizes == 'image' and doc.print_image ">
+                  <td class="border-black">
+                      <span t-field="l.product_id.image"
+                            t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                  </td>
+              </t>
+              <t t-if="doc.image_sizes == 'image_medium' and doc.print_image">
+                  <td class="border-black">
+                      <span t-field="l.product_id.image_medium"
+                            t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                  </td>
+              </t>
+              <t t-if="doc.image_sizes == 'image_small' and doc.print_image ">
+                  <td class="border-black">
+                      <span t-field="l.product_id.image_small"
+                            t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
+                  </td>
+              </t>
+              <td class="text-right border-black">
+                  <span t-field="l.product_uom_qty"/>
+                  <span t-field="l.product_uom" groups="product.group_uom"/>
+              </td>
+              <td class="border-black">N/A</td>
+              <td class="border-black"><span t-field="l.name"/></td>
+              <td class="text-right border-black">
+                  <span t-field="l.price_unit"/>
+              </td>
+              <td class="text-right border-black">
+                  <span t-field="l.price_subtotal"/>
+              </td>
+            </tr>
+          </t>
+        </xpath>
+        <xpath expr="//div[@name='total']" position="inside">
+          <div class="col-xs-8 pull-left">
+            <table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td><strong>REQUISITOS PARA VENTA:</strong></td>
+                </tr>
+                <tr class="border-black" style="border: solid 1px #000000;">
+                  <td>
+                    <span>*ENVIAR COMPROBANTE DE PAGO Y DOMICILIO EXACTO DE ENTREGA.</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-8 pull-left">
+            <table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td><strong>REQUISITOS PARA RENTA:</strong></td>
+                </tr>
+                <tr class="border-black" style="border: solid 1px #000000;">
+                  <td>
+                    <strong>Persona física (F) / Persona moral (M)</strong><br/>
+                    <strong>F/M</strong> * COPIA DE INE O LICENCIA CON DOMICILIO.<br/>
+                    <strong>F/M</strong> * COPIA DE COMPROBANTE DE DOMICILIO ZONA METROPOLITANA DE GUADALAJARA NO MAYOR A 2 MESES (LUZ, TELEFONIA FIJA).<br/>
+                    <strong>F/M</strong> * FIRMA DE COMTRATO DE ARRENDAMIENTO Y PAGARE.<br/>
+                    <strong>F/M</strong> * PAGO DE RENTA DEL EQUIPO POR ADELANTADO.<br/>
+                    <strong>F/M</strong> * RENTA MINIMA $250.00 MÁS FLETES.<br/>
+                    <strong>M</strong> * ACTA CONSTITUTIVA<br/>
+                    <strong>M</strong> * RFC<br/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-12">
+            <table class="table table-condensed">
+              <tbody>
+                <tr>
+                  <td><strong>OBSERVACIONES:</strong></td>
+                </tr>
+                <tr class="border-black" style="border: solid 1px #000000;">
+                  <td>
+                    * VIGENCIA: 15 DIAS<br/>
+                    * TIEMPO DE ENTREGA: DIA HABIL SIGUIENTE UNA VEZ CONFIRMADO SU PAGO Y EXISTENCIA.<br/>
+                    * FORMA DE PAGO: SE REQUIERE DEL PAGO PARA SU ENTREGA.<br/>
+                    * CUENTA A DEPOSITAR: BBVA BANCOMER CTA: 0109796541 CBE: 012320001097965414 <strong>AE Andamios Express S.A de C.V</strong><br/>
+                    * PARA PODER PROGRAMAR SU PEDIDO EN LOGISTICA ES INDISPENSABLE ENVIAR PREVIAMENTE TODA SU DOCUMENTACION Y DOMICILIO COMPLETO DE ENTREGA<br/>
+                    * NO NOS COMPROMETEMOS A TENER EQUIPOS SOLICITADOS EN STOCK.<br/>
+                    * PRECIOS SUJETOS A CAMBIO SIN PREVIO AVISO<br/>
+                    * EQUIPO SUJETO A DISPONIBILIDAD<br/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </xpath>
+    </template>
+    <template id="adw_custom_report_saleorder_footer_inherit" inherit_id="report.external_layout_footer">
+      <xpath expr="//div[@class='footer']/div/ul[1]" position="replace">
+        <div class="col-xs-2 text-left">
+            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 80px;"/>
+        </div>
+        <div class="col-xs-6 text-left">
+          <span t-field="doc.user_id"/><br/>
+          <span t-field="doc.user_id.email"/>
+        </div>
+      </xpath>
+    </template>
+</odoo>

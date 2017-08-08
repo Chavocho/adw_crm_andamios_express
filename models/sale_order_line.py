@@ -4,6 +4,6 @@
 from odoo import api, fields, models
 
 class SaleOrderLine(models.Model):
-  _inherit = "sale.order"
+    _inherit = "sale.order.line"
 
-  ae_dias_renta     = fields.Char(string="Dias de renta", help="")
+    ae_dias_renta_line = fields.Integer(string='Días', default=1)

@@ -8,9 +8,9 @@
         <field name="category_id" position="after">
           <field name="ae_domicilio_obra" placeholder="Dirección de Obra" />
           <field name="ae_contrato_nuevo" placeholder="Contrato nuevo" />
-          <field name="ae_rfc" placeholder="RFC" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
-          <field name="ae_razon_social" placeholder="Nombre o Razón Social" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
-          <field name="ae_domicilio_fiscal" placeholder="Domicilio Fiscal" attrs="{'invisible':[('company_type', '!=', 'company')]}" />
+          <field name="ae_rfc" placeholder="RFC" />
+          <field name="ae_razon_social" placeholder="Nombre o Razón Social" />
+          <field name="ae_domicilio_fiscal" placeholder="Domicilio Fiscal" />
         </field>
     </field>
   </record>

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-  <record id="adw_custom_field_sale" model="ir.ui.view">
-    <field name="name">Sale Order</field>
+  <record id="adw_view_line_order_inherit" model="ir.ui.view">
+    <field name="name">sale.order.line</field>
     <field name="model">sale.order</field>
-    <field name="inherit_id" ref="sale.view_order_form" />
+    <field name="inherit_id" ref="sale.view_order_form"/>
     <field name="arch" type="xml">
-        <field name="payment_term_id" position="after">
-          <field name="ae_dias_renta" />
-        </field>
+        <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="before">
+            <field name="ae_dias_renta_line"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+            <field name="ae_dias_renta_line"/>
+        </xpath>
     </field>
   </record>
 </odoo>

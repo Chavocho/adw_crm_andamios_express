@@ -5,13 +5,29 @@
     <field name="model">crm.lead</field>
     <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
     <field name="arch" type="xml">
-        <field name="team_id" position="after">
-          <field name="campaign_id" string="Campaña"/>
-          <field name="medium_id" string="Medio"/>
-          <field name="source_id" string="Origen"/>
-          <field name="lost_reason" string="Motivo de perdida"/>
-          <field name="ae_servicio" string="Servicio"/>
-        </field>
+      <xpath expr="//page[@name='lead']/group/group[3]" position="replace">
+        <!--Remueve grupo de campos de Marketing (Campaña, Medio, Origen)-->
+      </xpath>
+      <field name="team_id" position="after">
+        <field name="campaign_id" string="Campaña"/>
+        <field name="medium_id" string="Medio"/>
+        <field name="source_id" string="Origen"/>
+      </field>
+      <field name="tag_ids" position="after">
+        <field name="ae_metodo_pago" string="Método de Pago"/>
+        <!--<field name="lost_reason" string="Motivo de perdida"/>-->
+      </field>
+    </field>
+  </record>
+
+  <record id="adw_custom_fields_simple_lead" model="ir.ui.view">
+    <field name="name">AE Campos de Oportunidad Simple</field>
+    <field name="model">crm.lead</field>
+    <field name="inherit_id" ref="crm.view_create_opportunity_simplified" />
+    <field name="arch" type="xml">
+      <field name="priority" position="after">
+        <field name="source_id" string="Origen"/>
+      </field>
     </field>
   </record>
 </odoo>
