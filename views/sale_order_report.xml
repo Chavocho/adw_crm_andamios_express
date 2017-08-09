@@ -56,9 +56,9 @@
           </div>
         </xpath>
         <xpath expr="//table[@class='table table-condensed']/thead/tr" position="replace">
-          <th t-if="doc.print_image " class="border-black">Imagen</th>
+          <th t-if="doc.print_image" class="border-black">Imagen</th>
           <th class="text-left border-black">Cant.</th>
-          <th class="border-black">Días</th>
+          <th t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'" class="border-black">Días de renta</th>
           <th class="border-black">Descripción</th>
           <th class="text-right border-black">Precio Unitario</th>
           <th class="text-right border-black">Subtotal</th>
@@ -88,8 +88,14 @@
                   <span t-field="l.product_uom_qty"/>
                   <span t-field="l.product_uom" groups="product.group_uom"/>
               </td>
-              <td class="border-black">N/A</td>
-              <td class="border-black"><span t-field="l.name"/></td>
+              <t t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'">
+                  <td class="border-black text-right">
+                      <span t-field="doc.ae_renta_dia"/>
+                  </td>
+              </t>
+              <td class="border-black">
+                <span t-field="l.name"/>
+              </td>
               <td class="text-right border-black">
                   <span t-field="l.price_unit"/>
               </td>
@@ -98,6 +104,41 @@
               </td>
             </tr>
           </t>
+        </xpath>
+        <xpath expr="//div[@name='total']/div[1]/table" position="replace">
+          <table class="table table-condensed">
+            <tbody>
+              <t t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'">
+                <tr class="border-black">
+                  <td><strong>Días de renta</strong></td>
+                  <td class="border-black text-right">
+                    <span t-field="doc.ae_renta_dia"/>
+                  </td>
+                </tr>
+              </t>
+              <tr class="border-black">
+                <td><strong>Subtotal</strong></td>
+                <td class="text-right">
+                  <span t-field="doc.amount_untaxed"
+                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                </td>
+              </tr>
+              <tr class="border-black">
+                <td><strong>IVA</strong></td>
+                <td class="text-right">
+                  <span t-field="doc.amount_tax"
+                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                </td>
+              </tr>
+              <tr class="border-black">
+                <td><strong>Total</strong></td>
+                <td class="text-right">
+                  <span t-field="doc.amount_total"
+                      t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </xpath>
         <xpath expr="//div[@name='total']" position="inside">
           <div class="col-xs-8 pull-left">
