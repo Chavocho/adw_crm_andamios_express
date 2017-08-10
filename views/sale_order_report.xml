@@ -49,57 +49,57 @@
               </div>
             </div>
           </div>
-          <div t-if="doc.user_id.name" class="col-xs-6">
+          <div t-if="doc.user_id.name" class="col-xs-6 text-right">
             <div>
               <span>ELABORÓ:</span> <span t-field="doc.user_id"/>
             </div>
           </div>
         </xpath>
         <xpath expr="//table[@class='table table-condensed']/thead/tr" position="replace">
-          <th t-if="doc.print_image" class="border-black">Imagen</th>
-          <th class="text-left border-black">Cant.</th>
-          <th t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'" class="border-black">Días de renta</th>
-          <th class="border-black">Descripción</th>
-          <th class="text-right border-black">Precio Unitario</th>
-          <th class="text-right border-black">Subtotal</th>
+          <th t-if="doc.print_image" class="border-black" style="border:solid 1px #000000;">Imagen</th>
+          <th class="text-left border-black" style="border:solid 1px #000000;">Cant.</th>
+          <th t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'" class="border-black" style="border:solid 1px #000000;">Días</th>
+          <th class="border-black" style="border:solid 1px #000000;">Descripción</th>
+          <th class="text-right border-black" style="border:solid 1px #000000;">Precio Unitario</th>
+          <th class="text-right border-black" style="border:solid 1px #000000;">Importe</th>
         </xpath>
         <xpath expr="//table/tbody[@class='sale_tbody']/t/t[2]" position="replace">
           <t t-foreach="layout_category['lines']" t-as="l">
             <tr>
               <t t-if="doc.image_sizes == 'image' and doc.print_image ">
-                  <td class="border-black">
+                  <td class="border-black" style="border: solid 1px #000000;">
                       <span t-field="l.product_id.image"
                             t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_medium' and doc.print_image">
-                  <td class="border-black">
+                  <td class="border-black" style="border: solid 1px #000000;">
                       <span t-field="l.product_id.image_medium"
                             t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
                   </td>
               </t>
               <t t-if="doc.image_sizes == 'image_small' and doc.print_image ">
-                  <td class="border-black">
+                  <td class="border-black" style="border: solid 1px #000000;">
                       <span t-field="l.product_id.image_small"
                             t-field-options="{&quot;widget&quot;: &quot;image&quot;, &quot;class&quot;: &quot;img-rounded&quot;}"/>
                   </td>
               </t>
-              <td class="text-right border-black">
+              <td class="text-right border-black" style="border: solid 1px #000000;">
                   <span t-field="l.product_uom_qty"/>
                   <span t-field="l.product_uom" groups="product.group_uom"/>
               </td>
               <t t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'">
-                  <td class="border-black text-right">
+                  <td class="border-black text-right" style="border: solid 1px #000000;">
                       <span t-field="doc.ae_renta_dia"/>
                   </td>
               </t>
-              <td class="border-black">
-                <span t-field="l.name"/>
+              <td class="border-black" style="border: solid 1px #000000;">
+                <span t-field="l.product_id.description_sale"/>
               </td>
-              <td class="text-right border-black">
+              <td class="text-right border-black" style="border: solid 1px #000000;">
                   <span t-field="l.price_unit"/>
               </td>
-              <td class="text-right border-black">
+              <td class="text-right border-black" style="border: solid 1px #000000;">
                   <span t-field="l.price_subtotal"/>
               </td>
             </tr>
@@ -110,29 +110,29 @@
             <tbody>
               <t t-if="doc.ae_tipo_cotizacion == 'cotizacion_para_renta'">
                 <tr class="border-black">
-                  <td><strong>Días de renta</strong></td>
-                  <td class="border-black text-right">
+                  <td style="border: solid 1px #000000;"><strong>Días de renta</strong></td>
+                  <td class="border-black text-right" style="border: solid 1px #000000;">
                     <span t-field="doc.ae_renta_dia"/>
                   </td>
                 </tr>
               </t>
               <tr class="border-black">
-                <td><strong>Subtotal</strong></td>
-                <td class="text-right">
+                <td style="border: solid 1px #000000;"><strong>Subtotal</strong></td>
+                <td class="text-right" style="border: solid 1px #000000;">
                   <span t-field="doc.amount_untaxed"
                       t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                 </td>
               </tr>
               <tr class="border-black">
-                <td><strong>IVA</strong></td>
-                <td class="text-right">
+                <td style="border: solid 1px #000000;"><strong>IVA</strong></td>
+                <td class="text-right" style="border: solid 1px #000000;">
                   <span t-field="doc.amount_tax"
                       t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                 </td>
               </tr>
               <tr class="border-black">
-                <td><strong>Total</strong></td>
-                <td class="text-right">
+                <td style="border: solid 1px #000000;"><strong>Total</strong></td>
+                <td class="text-right" style="border: solid 1px #000000;">
                   <span t-field="doc.amount_total"
                       t-field-options='{"widget": "monetary", "display_currency": "doc.pricelist_id.currency_id"}'/>
                 </td>
