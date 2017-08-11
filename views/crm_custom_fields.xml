@@ -15,6 +15,7 @@
       </field>
       <field name="tag_ids" position="after">
         <field name="ae_metodo_pago" string="Método de Pago"/>
+        <field name="ae_tipo_cotizacion"/>
         <!--<field name="lost_reason" string="Motivo de perdida"/>-->
       </field>
     </field>
