@@ -13,6 +13,7 @@
         'views/crm_custom_fields.xml',
         'views/sale_order_line.xml',
         'views/sale_order_report.xml',
+        'views/theme.xml',
     ],
     'installable': True,
 }

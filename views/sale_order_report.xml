@@ -2,7 +2,7 @@
 <odoo>
     <template id="adw_sale_order_assets_backend" name="sale order assets" inherit_id="sale.report_saleorder_document">
       <xpath expr="." position="inside">
-        <link rel="stylesheet" href="/adw_crm_andamios_express/static/css/my.css"/>
+        <!--<link rel="stylesheet" href="/adw_crm_andamios_express/static/css/my.css"/>-->
       </xpath>
     </template>
     <!--Template que sobreescribe el modelo report.external_layout_header, en cual modifica el encabezado del encabezado-->
