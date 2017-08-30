@@ -14,8 +14,13 @@ class SaleOrder(models.Model):
                 if order.ae_renta_dia <= 0:
                     order.ae_renta_dia = 1
                 for line in order.order_line:
-                    amount_untaxed += (line.price_subtotal * order.ae_renta_dia)
-                    amount_tax += (line.price_tax * order.ae_renta_dia)
+                    if line.product_id.type == 'service':
+                        amount_untaxed += line.price_subtotal
+                        amount_tax += line.price_tax
+                    else:
+                        amount_untaxed += (line.price_subtotal * order.ae_renta_dia)
+                        amount_tax += (line.price_tax * order.ae_renta_dia)
+
                     rent_amount_untaxed += line.price_subtotal
                     amount_days_retail = order.ae_renta_dia
             else:
@@ -56,8 +61,13 @@ class SaleOrder(models.Model):
                 if order.ae_renta_dia <= 0:
                     order.ae_renta_dia = 1
                 for line in order.order_line:
-                    order.amount_untaxed += (line.price_subtotal * order.ae_renta_dia)
-                    order.amount_tax += (line.price_tax * order.ae_renta_dia)
+                    if line.product_id.type == 'service':
+                        order.amount_untaxed += line.price_subtotal
+                        order.amount_tax += line.price_tax
+                    else:
+                        order.amount_untaxed += (line.price_subtotal * order.ae_renta_dia)
+                        order.amount_tax += (line.price_tax * order.ae_renta_dia)
+
                     order.rent_amount_untaxed += line.price_subtotal
                     order.amount_days_retail = order.ae_renta_dia
             else:
